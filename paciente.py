@@ -34,11 +34,11 @@ class Paciente:
     
     @property
     def prevision(self)->str:
-        return self.___prevision
+        return self.__prevision
 
     @prevision.setter
     def prevision(self, prevision:str)->None:
         self.__prevision = prevision
 
-    def __repr__()->str: #encontrar el objeto enfocado para que el desarrollador lo vea
+    def __repr__(self)->str: #encontrar el objeto enfocado para que el desarrollador lo vea
         return f"Paciente(rut='{self.rut}',nombre='{self.nombre}',edad='{self.edad}',prevision='{self.prevision}')"
