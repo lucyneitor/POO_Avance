@@ -96,3 +96,16 @@ Envía los commits guardados en tu máquina local hacia el servidor o repositori
 * **Definición:** `self` representa la **instancia única del objeto mismo**.
 
 * **Explicación:** Dentro de una clase, `self` se utiliza para hacer referencia a los atributos y métodos pertenecientes a la instancia específica que está ejecutando el código, permitiendo diferenciar las variables globales o locales de los datos propios del objeto.
+
+
+
+### `@property` (Getter / Capta datos) y `@<atributo>.setter` (Setter / Asigna datos)
+En lenguajes como Python, se utilicen estos decoradores para implementar el encapsulamiento y controlar la forma en que se leen y modifican los atributos de una clase.
+
+* **Definición `@property`:** Permite definir un método para que sea accedido **como si fuera un atributo público** (sin parentesis `()`).
+
+* **Explicación:** Funciona como un "Getter" (obtenedor). Protege el atributo directo (frecuentemente privado o protegido, como `_precio`) al retornar su valor o una versión modificada de él.
+
+* **Definición `@<atributo>.setter`:** Permite definir un método que asigna un nuevo valor al atributo manejado por `@property`.
+
+* **Explicación:** Funciona como un "Setter" (establecedor). Permite añadir **validaciones y controles de seguridad** antes de modificar el valor de un atributo.
