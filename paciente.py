@@ -1,4 +1,7 @@
 class Paciente:
+
+    PREVISIONES:set[str] = {"Fonasa","Isapre","Particular"} #tipo de dato llamado conjunto de datos (set)
+
     def __init__(self, rut:str, nombre:str, edad:int, prevision:str): #constructor
         self.rut = rut
         self.nombre = nombre
@@ -26,7 +29,7 @@ class Paciente:
         return self.__edad
 
     @edad.setter
-    def (self, edad:int)->None:
+    def edad(self, edad:int)->None:
         self.__edad = edad
     
     @property
@@ -34,5 +37,8 @@ class Paciente:
         return self.___prevision
 
     @prevision.setter
-    def (self, prevision:str)->None:
+    def prevision(self, prevision:str)->None:
         self.__prevision = prevision
+
+    def __repr__()->str: #encontrar el objeto enfocado para que el desarrollador lo vea
+        return f"Paciente(rut='{self.rut}',nombre='{self.nombre}',edad='{self.edad}',prevision='{self.prevision}')"

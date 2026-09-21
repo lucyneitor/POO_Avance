@@ -109,3 +109,9 @@ En lenguajes como Python, se utilicen estos decoradores para implementar el enca
 * **Definición `@<atributo>.setter`:** Permite definir un método que asigna un nuevo valor al atributo manejado por `@property`.
 
 * **Explicación:** Funciona como un "Setter" (establecedor). Permite añadir **validaciones y controles de seguridad** antes de modificar el valor de un atributo.
+
+### Representación Formal del Objeto: `__repr__`
+
+El método especial `__repr__` (del inglés *representation*) se utiliza para definir una **representación en texto inequívoca y detallada del objeto**. Está diseñado principalmente para el **desarrollador** o para labores de depuración (*debugging*).
+
+A diferencia de `__str__` (que busca mostrar un texto amigable al usuario final), `__repr__` busca mostrar cómo está compuesto el objeto internamente con sus valores actuales.
