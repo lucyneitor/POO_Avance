@@ -8,4 +8,5 @@ Clonamos el repositorio de la nueva a la computadora creando una carpeta vacia a
 ## git config --global user.name [ingresar nombre sin corchetes]
 ## git config --global user.email [ingresar gmail sin corchetes]
 ## git config --global --list
+![Captura de prueba](imagenes\deadpool.png)
 
