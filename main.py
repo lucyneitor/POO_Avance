@@ -36,11 +36,11 @@ def agregar_paciente()->None:
     prevision = input("Ingrese el tipo de seguro (Isapre/Fonasa): ")
     if prevision == 0:
         prevision="Fonasa"
-    if prevision == 1:
+    elif prevision == 1:
         prevision="Isapre"
-    if prevision == 2:
+    elif prevision == 2:
         prevision="Particular"
-    if prevision == 3:
+    elif prevision == 3:
         prevision="Otro"
     else:
        prevision = ""
@@ -55,10 +55,76 @@ def imprimir_pacientes() -> None:
     else:
         print("No hay pacientes registrados.")
 
+def buscar_paciente()->Paciente | None: #paciente da mayor precision que decir object
+    rut=input("Ingrese Rut del paciente a buscar: ")
+    for paciente in pacientes:
+        if paciente.rut == rut: #paciente.rut viene de la clase paciente property self__rut pido dato
+            return paciente
+    return None
+
+def imprimir_paciente()->None:
+    paciente = buscar_paciente() #retorna el objeto
+    if paciente:
+        print(paciente)
+    else: #si objeto no tiene existencia de valor
+        print("Paciente no encontrado.")
+
+def eliminar_paciente()->None:
+    paciente = buscar_paciente()
+    if paciente:
+        resp=input(f"¿Seguro de eliminar a {paciente.nombre}? si/no \n")#input no funciona concadenar con comas
+        if resp.lower().strip()=="si":
+            pacientes.remove(paciente)
+            print("Paciente eliminado.")
+        else:
+            print("Operación cancelada.")
+            return
+    else:
+        print("Paciente no encontrado.")
+
+    
+def editar_paciente()->None:
+    paciente = buscar_paciente()
+    if paciente:
+        print("Menú edición")
+        print("1- Editar nombre")
+        print("2- Editar edad")
+        print("3- Editar previsión")
+        op = leer_numero("Seleccione una opción: ")
+
+        if op == 1:
+            print(f"Nombre actual: {paciente.nombre}")
+            nombre = input("Ingrese nuevo nombre: ")
+            paciente.nombre = nombre #nombre.setter
+        elif op == 2:
+            print(f"Edad actual: {paciente.edad}")
+            edad = leer_numero("Ingrese nuevo edad: ")
+            paciente.edad = edad #edad.setter
+        elif op == 3:
+            print(f"La previsión actual es: {paciente.prevision}")
+            print("Previsiones disponibles: \n"
+                  "1- Fonasa \n"
+                  "2- Isapre \n"
+                  "3- Particular \n"
+                  "4- Otro")
+            prevision = leer_numero("Seleccione una prevision: ")
+            if prevision == 0:
+                prevision="Fonasa"
+            elif prevision == 1:
+                prevision="Isapre"
+            elif prevision == 2:
+                prevision="Particular"
+            elif prevision == 3:
+                prevision="Otro"
+            else:
+                print("No se realizaron cambios en la previsión")
+            paciente.prevision = prevision #prevision.setter
+    else:
+        print("Paciente no encontrado.")
+
 def main(): #siempre
     while True:
         op = menu()
-        
         match op: #se sale del ciclo despues del primer intento
             case 1: #agregar paciente
                 print("Agregando paciente")
@@ -66,12 +132,15 @@ def main(): #siempre
                 continue
             case 2: #editar paciente
                 print("Editando paciente")
+                editar_paciente()
                 continue
             case 3:
                 print("Eliminando paciente")
+                eliminar_paciente()
                 continue
             case 4:
                 print("Imprimiendo paciente")
+                imprimir_paciente()
                 continue
             case 5:
                 print("Imprimiendo todos los pacientes")
