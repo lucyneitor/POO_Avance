@@ -28,12 +28,12 @@ def agregar_paciente()->None:
     nombre = input("Ingrese el nombre del paciente: ")
     edad = leer_numero("Ingrese la edad del paciente: ")
     print("Previsones disponibles: \n",
-    "1- Isapre\n",
-    "2- Fonasa\n",
-    "3- Particular \n",
-    "4- Otro \n"
-    "5- Salir")
-    prevision = input("Ingrese el tipo de seguro (Isapre/Fonasa): ")
+    "0- Isapre\n",
+    "1- Fonasa\n",
+    "2- Particular \n",
+    "3- Otro \n"
+    "4- Salir")
+    prevision = leer_numero("Ingrese el tipo de seguro (Isapre/Fonasa): ")
     if prevision == 0:
         prevision="Fonasa"
     elif prevision == 1:
@@ -46,7 +46,15 @@ def agregar_paciente()->None:
        prevision = ""
        print("Opción no válida") 
        return # sale de la funcion para que no se guarde datos
-    pacientes.append(Paciente(rut, nombre, edad, prevision))
+    
+    try:
+        nuevo_paciente = Paciente(rut,nombre,edad,prevision)
+    except (ValueError, TypeError) as e:#el objeto que genero error lo captura e
+        print(f"Error al crear paciente: {e}")
+        return
+
+    pacientes.append(nuevo_paciente)
+    print("Paciente agregado exitosamente")
 
 def imprimir_pacientes() -> None:
     if pacientes: #si hay pacientes pasa esto
@@ -72,17 +80,26 @@ def imprimir_paciente()->None:
 def eliminar_paciente()->None:
     paciente = buscar_paciente()
     if paciente:
-        resp=input(f"¿Seguro de eliminar a {paciente.nombre}? si/no \n")#input no funciona concadenar con comas
-        if resp.lower().strip()=="si":
+        decision = confirmar_proceso(f"¿Seguro de eliminar a {paciente.nombre}? \n")
+        #resp=input(f"¿Seguro de eliminar a {paciente.nombre}? si/no \n")#input no funciona concadenar con comas
+        if decision:
             pacientes.remove(paciente)
-            print("Paciente eliminado.")
+            print("Paciente Eliminado")
         else:
-            print("Operación cancelada.")
-            return
+            print("Eliminación cancelada")
     else:
         print("Paciente no encontrado.")
 
-    
+def confirmar_proceso(msg:str)->bool:
+    while True:
+        resp=input(f"{msg} (si/no)").strip().lower()
+        if resp in ("si","no"):
+            if resp == "si":
+                return True
+            else:
+                return False
+        print("Para seguir el procedimiento debe ingresar 'si o 'no'")
+
 def editar_paciente()->None:
     paciente = buscar_paciente()
     if paciente:
@@ -92,14 +109,23 @@ def editar_paciente()->None:
         print("3- Editar previsión")
         op = leer_numero("Seleccione una opción: ")
 
+        msg="Edición cancelada"
         if op == 1:
             print(f"Nombre actual: {paciente.nombre}")
             nombre = input("Ingrese nuevo nombre: ")
-            paciente.nombre = nombre #nombre.setter
+            decision = confirmar_proceso(f"¿Confirma el cambio ({paciente.nombre} ---> {nombre})?")
+            if decision:
+                paciente.nombre = nombre #nombre.setter
+            else:
+                print(msg)
         elif op == 2:
             print(f"Edad actual: {paciente.edad}")
             edad = leer_numero("Ingrese nuevo edad: ")
-            paciente.edad = edad #edad.setter
+            decision = confirmar_proceso(f"¿Confirma el cambio ({paciente.edad} ---> {edad})?")
+            if decision:
+                paciente.edad = edad #edad.setter
+            else:
+                print(msg)
         elif op == 3:
             print(f"La previsión actual es: {paciente.prevision}")
             print("Previsiones disponibles: \n"
