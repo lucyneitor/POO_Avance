@@ -1,6 +1,6 @@
 class Paciente:
 
-    PREVISIONES:set[str] = {"Fonasa","Isapre","Particular"} #tipo de dato llamado conjunto de datos (set)
+    PREVISIONES:set[str] = {"Fonasa","Isapre","Particular","Otro"} #tipo de dato llamado conjunto de datos (set)
 
     def __init__(self, rut:str, nombre:str, edad:int, prevision:str): #constructor
         self.rut = rut
